@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "../../Topicos_de_Eng"
+		},
+		{
+			"path": "../../Topicos_de_Eng - Copia"
+		},
+		{
+			"path": "../../Web"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Topicos_de_Eng - Copia"
+	}
+}
