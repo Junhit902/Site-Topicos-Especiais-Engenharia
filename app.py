@@ -126,11 +126,6 @@ def criar_exame():
         paciente_id = exame['pacienteId']
         tipo_exame = exame['tipoExame']
         detalhes_exame = exame['detalhes']
-        
-        # Se a chave for 'frequencia', renomeie para 'frequenciaCardiaca'
-        if 'frequencia' in detalhes_exame and 'frequenciaCardiaca' not in detalhes_exame:
-            detalhes_exame['frequenciaCardiaca'] = detalhes_exame.pop('frequencia')
-        
         data_exame = exame['data']
         logger.info(f"Recebido exame para paciente {paciente_id}: {exame}")
 
@@ -145,14 +140,35 @@ def criar_exame():
         except DocumentNotFoundException:
             pass  # Se não existir, continua
 
+        # Prepara os detalhes do exame com base no tipo
+        if tipo_exame == 'Sangue':
+            detalhes = {
+                'hemoglobina': detalhes_exame.get('hemoglobina'),
+                'leucocitos': detalhes_exame.get('leucocitos')
+            }
+        elif tipo_exame == 'Urina':
+            detalhes = {
+                'ph': detalhes_exame.get('ph'),
+                'densidade': detalhes_exame.get('densidade')
+            }
+        elif tipo_exame == 'Eletrocardiograma':
+            detalhes = {
+                'frequenciaCardiaca': detalhes_exame.get('frequenciaCardiaca') or detalhes_exame.get('frequencia'),
+                'ritmo': detalhes_exame.get('ritmo')
+            }
+        elif tipo_exame in ['Raio-X', 'Ultrassom']:
+            detalhes = {
+                'observacoes': detalhes_exame.get('observacoes'),
+                'regiao': detalhes_exame.get('regiao')
+            }
+        else:
+            detalhes = detalhes_exame  # Caso tenha outros tipos de exame
+
         # Salva o exame no Couchbase
         exame_data = {
             'tipo': tipo_exame,
             'data': data_exame,
-            'detalhes': {
-                'frequenciaCardiaca': detalhes_exame.get('frequenciaCardiaca') or detalhes_exame.get('frequencia_cardiaca'),
-                'ritmo': detalhes_exame.get('ritmo')
-            },
+            'detalhes': detalhes,
             'pacienteId': paciente_id,
             'type': 'exame'
         }
