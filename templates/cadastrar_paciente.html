@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Paciente - Dev Healthy</title>
+    <link rel="stylesheet" href="/static/cadastrar_paciente/cadastrar_paciente.css">
+    <link rel="stylesheet" href="/static/Home/home.css"> <!-- Adicione o CSS do home para o Navbar -->
+    <link rel="icon" href="/static/Home/imagens/Captura_de_tela_2024-11-02_124301-removebg-preview.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- Barra de Navegação -->
+<nav class="navbar">
+    <div class="navbar-brand">
+        <a href="/"><img src="/static/Home/imagens/Captura_de_tela_2024-11-02_124301-removebg-preview.png" alt="Dev Healthy"></a>
+    </div>
+    <div class="navbar-menu">
+        <a href="/cadastrar_paciente"><button class="menu-button">Cadastrar Paciente</button></a>|
+        <a href="/consultar_paciente"><button class="menu-button">Consultar Paciente</button></a>|
+        <a href="/criar_exame"><button class="menu-button">Criar Exame</button></a>|
+        <a href="/consultar_exame"><button class="menu-button">Consultar Exame</button></a>
+    </div>
+    <div class="offcanvas" id="offcanvasMenu">
+        <button class="close" onclick="toggleMenu('offcanvasMenu')">✖</button>
+            <a href="/"><button class="menu-button">Home</button></a>
+            <a href="/cadastrar_paciente"><button class="menu-button">Cadastrar Paciente</button></a>
+            <a href="/consultar_paciente"><button class="menu-button">Consultar Paciente</button></a>
+            <a href="/criar_exame"><button class="menu-button">Criar Exame</button></a>
+            <a href="/consultar_exame"><button class="menu-button">Consultar Exame</button></a>
+        </div>
+        <button class="offcanvas-toggle" onclick="toggleMenu('offcanvasMenu')">☰</button>
+    </nav>
+
+<div class="container">
+    <h1>Cadastro de Paciente</h1>
+    <form id="formCadastrarPaciente">
+        <label for="nomePaciente">Nome:</label>
+        <input type="text" id="nomePaciente" required>
+
+        <label for="dataNascimento">Data de Nascimento:</label>
+        <input type="date" id="dataNascimento" required>
+
+        <label for="sexoPaciente">Sexo:</label>
+        <select id="sexoPaciente" required>
+            <option value="">Selecione</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Feminino">Feminino</option>
+            <option value="Outro">Outro</option>
+        </select>
+
+        <label for="cpfPaciente">CPF:</label>
+        <input type="text" id="cpfPaciente" required pattern="\d{11}" placeholder="Somente números">
+
+        <label for="ruaPaciente">Rua:</label>
+        <input type="text" id="ruaPaciente" required>
+
+        <label for="numeroPaciente">Número:</label>
+        <input type="number" id="numeroPaciente" required>
+
+        <label for="cidadePaciente">Cidade:</label>
+        <input type="text" id="cidadePaciente" required>
+
+        <label for="estadoPaciente">Estado:</label>
+        <select id="estadoPaciente" required>
+            <option value="">Selecione</option>
+            <option value="AC">Acre</option>
+            <option value="AL">Alagoas</option>
+            <option value="AP">Amapá</option>
+            <option value="AM">Amazonas</option>
+            <option value="BA">Bahia</option>
+            <option value="CE">Ceará</option>
+            <option value="DF">Distrito Federal</option>
+            <option value="ES">Espírito Santo</option>
+            <option value="GO">Goiás</option>
+            <option value="MA">Maranhão</option>
+            <option value="MT">Mato Grosso</option>
+            <option value="MS">Mato Grosso do Sul</option>
+            <option value="MG">Minas Gerais</option>
+            <option value="PA">Pará</option>
+            <option value="PB">Paraíba</option>
+            <option value="PR">Paraná</option>
+            <option value="PE">Pernambuco</option>
+            <option value="PI">Piauí</option>
+            <option value="RJ">Rio de Janeiro</option>
+            <option value="RN">Rio Grande do Norte</option>
+            <option value="RS">Rio Grande do Sul</option>
+            <option value="RO">Rondônia</option>
+            <option value="RR">Roraima</option>
+            <option value="SC">Santa Catarina</option>
+            <option value="SP">São Paulo</option>
+            <option value="SE">Sergipe</option>
+            <option value="TO">Tocantins</option>
+        </select>
+
+        <label for="cepPaciente">CEP:</label>
+        <input type="text" id="cepPaciente" required pattern="\d{8}" placeholder="Somente números">
+
+        <button type="submit">Cadastrar Paciente</button>
+    </form>
+    <div id="mensagem"></div>
+</div>
+
+<script src="/static/Home/home.js"></script> <!-- Adicione o JS do home para o Navbar -->
+<script src="/static/cadastrar_paciente/cadastrar_paciente.js"></script>
+</body>
+</html>

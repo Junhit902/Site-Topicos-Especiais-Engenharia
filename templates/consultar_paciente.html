@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Paciente - Dev Healthy</title>
+    <link rel="stylesheet" href="/static/consultar_paciente/consultar_paciente.css">
+    <link rel="stylesheet" href="/static/Home/home.css"> <!-- Adicione o CSS do home para o Navbar -->
+    <link rel="icon" href="/static/Home/imagens/Captura_de_tela_2024-11-02_124301-removebg-preview.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- Barra de Navegação -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a href="/"><img src="/static/Home/imagens/Captura_de_tela_2024-11-02_124301-removebg-preview.png" alt="Dev Healthy"></a>
+        </div>
+        <div class="navbar-menu">
+            <a href="/cadastrar_paciente"><button class="menu-button">Cadastrar Paciente</button></a>|
+            <a href="/consultar_paciente"><button class="menu-button">Consultar Paciente</button></a>|
+            <a href="/criar_exame"><button class="menu-button">Criar Exame</button></a>|
+            <a href="/consultar_exame"><button class="menu-button">Consultar Exame</button></a>
+        </div>
+        <div class="offcanvas" id="offcanvasMenu">
+            <button class="close" onclick="toggleMenu('offcanvasMenu')">✖</button>
+            <a href="/"><button class="menu-button">Home</button></a>
+            <a href="/cadastrar_paciente"><button class="menu-button">Cadastrar Paciente</button></a>
+            <a href="/consultar_paciente"><button class="menu-button">Consultar Paciente</button></a>
+            <a href="/criar_exame"><button class="menu-button">Criar Exame</button></a>
+            <a href="/consultar_exame"><button class="menu-button">Consultar Exame</button></a>
+        </div>
+        <button class="offcanvas-toggle" onclick="toggleMenu('offcanvasMenu')">☰</button>
+    </nav>
+
+    <div class="container">
+        <h2>Consultar Paciente</h2>
+        <form id="formConsultarPaciente">
+            <label for="cpfPaciente">CPF do paciente:</label>
+            <input type="text" id="cpfPaciente" list="sugestoesPacientes" placeholder="Somente números" required>
+            <datalist id="sugestoesPacientes"></datalist>
+            <button type="submit">Consultar</button>
+        </form>
+
+        <div id="resultadoConsulta"></div>
+    </div>
+
+    <script src="/static/consultar_paciente/consultar_paciente.js"></script>
+</body>
+</html>

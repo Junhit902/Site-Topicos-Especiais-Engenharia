@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Exame - Dev Healthy</title>
+    <link rel="stylesheet" href="/static/criar_exame/criar_exame.css">
+    <link rel="stylesheet" href="/static/Home/home.css"> <!-- Adicione o CSS do home para o Navbar -->
+    <link rel="icon" href="/static/Home/imagens/Captura_de_tela_2024-11-02_124301-removebg-preview.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- Barra de Navegação -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a href="/"><img src="/static/Home/imagens/Captura_de_tela_2024-11-02_124301-removebg-preview.png" alt="Dev Healthy"></a>
+        </div>
+        <div class="navbar-menu">
+            <a href="/cadastrar_paciente"><button class="menu-button">Cadastrar Paciente</button></a>|
+            <a href="/consultar_paciente"><button class="menu-button">Consultar Paciente</button></a>|
+            <a href="/criar_exame"><button class="menu-button">Criar Exame</button></a>|
+            <a href="/consultar_exame"><button class="menu-button">Consultar Exame</button></a>
+        </div>
+        <div class="offcanvas" id="offcanvasMenu">
+            <button class="close" onclick="toggleMenu('offcanvasMenu')">✖</button>
+            <a href="/"><button class="menu-button">Home</button></a>
+            <a href="/cadastrar_paciente"><button class="menu-button">Cadastrar Paciente</button></a>
+            <a href="/consultar_paciente"><button class="menu-button">Consultar Paciente</button></a>
+            <a href="/criar_exame"><button class="menu-button">Criar Exame</button></a>
+            <a href="/consultar_exame"><button class="menu-button">Consultar Exame</button></a>
+        </div>
+        <button class="offcanvas-toggle" onclick="toggleMenu('offcanvasMenu')">☰</button>
+    </nav>
+
+    <div class="container">
+        <h1>Criar Exame</h1>
+        <form id="formCriarExame">
+            <label for="selectPaciente">Paciente:</label>
+            <select id="selectPaciente" required>
+                <option value="">Selecione um paciente</option>
+            </select>
+            <p id="cpfPaciente"></p>
+            <label for="tipoExame">Tipo de Exame:</label>
+            <select id="tipoExame" required onchange="mostrarFormularioExame()">
+                <option value="">Selecione o tipo de exame</option>
+                <option value="Sangue">Sangue</option>
+                <option value="Urina">Urina</option>
+                <option value="Raio-X">Raio-X</option>
+                <option value="Ultrassom">Ultrassom</option>
+                <option value="Eletrocardiograma">Eletrocardiograma</option>
+            </select>
+            <div id="formExameContainer"></div>
+            <button type="submit" class="btn-criar-exame">Criar Exame</button>
+        </form>
+        <div id="resultadoCriacao"></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            carregarPacientes();
+
+            document.getElementById("formCriarExame").addEventListener("submit", function(event) {
+                event.preventDefault();
+                criarExame();
+            });
+
+            document.getElementById("selectPaciente").addEventListener("change", function() {
+                const selectedOption = this.options[this.selectedIndex];
+                const cpfPaciente = selectedOption.getAttribute('data-cpf');
+                document.getElementById('cpfPaciente').textContent = cpfPaciente ? `CPF: ${cpfPaciente}` : '';
+            });
+        });
+
+        function carregarPacientes() {
+            fetch('/obter-pacientes')
+                .then(response => response.json())
+                .then(data => {
+                    const selectPaciente = document.getElementById('selectPaciente');
+                    data.forEach(paciente => {
+                        const option = document.createElement('option');
+                        option.value = paciente.id;
+                        option.textContent = paciente.nome;
+                        option.setAttribute('data-cpf', paciente.cpf); // Adiciona o CPF como atributo
+                        selectPaciente.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar pacientes:', error);
+                });
+        }
+
+        function mostrarFormularioExame() {
+            const tipoExame = document.getElementById('tipoExame').value;
+            const formExameContainer = document.getElementById('formExameContainer');
+            formExameContainer.innerHTML = ''; // Limpa o formulário anterior
+
+            if (tipoExame === 'Sangue') {
+                formExameContainer.innerHTML = `
+                    <label for="hemoglobina">Hemoglobina:</label>
+                    <input type="text" id="hemoglobina" name="hemoglobina" required>
+                    <label for="leucocitos">Leucócitos:</label>
+                    <input type="text" id="leucocitos" name="leucocitos" required>
+                `;
+            } else if (tipoExame === 'Urina') {
+                formExameContainer.innerHTML = `
+                    <label for="ph">pH:</label>
+                    <input type="text" id="ph" name="ph" required>
+                    <label for="densidade">Densidade:</label>
+                    <input type="text" id="densidade" name="densidade" required>
+                `;
+            } else if (tipoExame === 'Raio-X') {
+                formExameContainer.innerHTML = `
+                    <label for="regiao">Região:</label>
+                    <input type="text" id="regiao" name="regiao" required>
+                    <label for="observacoes">Observações:</label>
+                    <textarea id="observacoes" name="observacoes" required></textarea>
+                `;
+            } else if (tipoExame === 'Ultrassom') {
+                formExameContainer.innerHTML = `
+                    <label for="regiao">Região:</label>
+                    <input type="text" id="regiao" name="regiao" required>
+                    <label for="observacoes">Observações:</label>
+                    <textarea id="observacoes" name="observacoes" required></textarea>
+                `;
+            } else if (tipoExame === 'Eletrocardiograma') {
+                formExameContainer.innerHTML = `
+                    <label for="frequencia">Frequência Cardíaca:</label>
+                    <input type="text" id="frequencia" name="frequencia" required>
+                    <label for="ritmo">Ritmo:</label>
+                    <input type="text" id="ritmo" name="ritmo" required>
+                `;
+            }
+        }
+
+        function criarExame() {
+            const pacienteId = document.getElementById('selectPaciente').value;
+            const tipoExame = document.getElementById('tipoExame').value;
+
+            // Pega todos os inputs gerados dinamicamente dentro do formExameContainer
+            const formExameContainer = document.getElementById('formExameContainer');
+            const inputs = formExameContainer.querySelectorAll('input, textarea');
+
+            // Cria um objeto para armazenar os detalhes do exame
+            const detalhes = {};
+            inputs.forEach(input => {
+                detalhes[input.name] = input.value;
+            });
+
+            // Validações
+            if (!pacienteId || !tipoExame) {
+                alert('Por favor, preencha todos os campos.');
+                return;
+            }
+
+            // Estrutura de dados do exame
+            const exame = {
+                pacienteId,
+                tipoExame,
+                data: new Date().toISOString(),
+                detalhes
+            };
+
+            fetch('/criar-exame', {
+                method: 'POST',  // Alterado para POST, pois é mais adequado para criação
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(exame)
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultadoDiv = document.getElementById('resultadoCriacao');
+                if (data.error) {
+                    resultadoDiv.innerHTML = `<p>${data.error}</p>`;
+                } else {
+                    resultadoDiv.innerHTML = `<p>${data.message}</p>`;
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao criar exame:', error);
+            });
+        }
+
+        function toggleMenu(menuId) {
+            const menu = document.getElementById(menuId);
+            menu.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

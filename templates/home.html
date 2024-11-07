@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Healthy</title>
+    <link rel="icon" href="/static/Home/imagens/Captura_de_tela_2024-11-02_124301-removebg-preview.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/static/Home/home.css">
+</head>
+<body>
+    <!-- Barra de Navegação -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a href="/"><img src="/static/Home/imagens/Captura_de_tela_2024-11-02_124301-removebg-preview.png" alt="Dev Healthy"></a>
+        </div>
+        <div class="navbar-menu">
+            <a href="/cadastrar_paciente"><button class="menu-button">Cadastrar Paciente</button></a>|
+            <a href="/consultar_paciente"><button class="menu-button">Consultar Paciente</button></a>|
+            <a href="/criar_exame"><button class="menu-button">Criar Exame</button></a>|
+            <a href="/consultar_exame"><button class="menu-button">Consultar Exame</button></a>
+        </div>
+        <div class="offcanvas" id="offcanvasMenu">
+            <button class="close" onclick="toggleMenu('offcanvasMenu')">✖</button>
+            <a href="/"><button class="menu-button">Home</button></a>
+            <a href="/cadastrar_paciente"><button class="menu-button">Cadastrar Paciente</button></a>
+            <a href="/consultar_paciente"><button class="menu-button">Consultar Paciente</button></a>
+            <a href="/criar_exame"><button class="menu-button">Criar Exame</button></a>
+            <a href="/consultar_exame"><button class="menu-button">Consultar Exame</button></a>
+        </div>
+        <button class="offcanvas-toggle" onclick="toggleMenu('offcanvasMenu')">☰</button>
+    </nav>
+
+    <!-- Mensagem de Boas-Vindas -->
+    <header class="hero">
+        <h1>Bem-vindo ao Dev Healthy!</h1>
+        <p>Seu espaço para cuidar da saúde de forma simples e eficiente.</p>
+    </header>
+
+    <!-- Carrossel de Curiosidades de Saúde -->
+    <div class="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/static/Home/imagens/samuel-ramos-0V7aC2SEm5U-unsplash.jpg" alt="Curiosidade 1">
+                <div class="carousel-caption">
+                    <h3>Curiosidade 1</h3>
+                    <p>Sabia que o coração humano bate cerca de 100 mil vezes por dia?</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="/static/Home/imagens/Leonardo_Kino_XL_Uma_foto_de_um_mdico_ou_enfermeiro_conversand_1.jpg" alt="Curiosidade 2">
+                <div class="carousel-caption">
+                    <h3>Curiosidade 2</h3>
+                    <p>O cérebro humano é composto por aproximadamente 100 bilhões de neurônios.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="/static/Home/imagens/marcelo-leal-6pcGTJDuf6M-unsplash.jpg" alt="Curiosidade 3">
+                <div class="carousel-caption">
+                    <h3>Curiosidade 3</h3>
+                    <p>O corpo humano possui cerca de 206 ossos.</p>
+                </div>
+            </div>
+        </div>
+        <button class="prev" onclick="mudarSlide(-1)">&#10094;</button>
+        <button class="next" onclick="mudarSlide(1)">&#10095;</button>
+    </div>
+
+    <script src="/static/Home/home.js"></script>
+</body>
+</html>
